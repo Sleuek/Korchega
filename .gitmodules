@@ -1,0 +1,16 @@
+[submodule "senoval"]
+	path = senoval
+	url = https://github.com/Zubax/senoval
+[submodule "chibios"]
+	path = chibios
+	url = https://github.com/Zubax/ChibiOS
+	branch = stable_18.2.x_patches
+[submodule "popcop"]
+	path = popcop
+	url = https://github.com/Zubax/popcop
+[submodule "libcanard"]
+	path = libcanard
+	url = https://github.com/UAVCAN/libcanard
+[submodule "kocherga"]
+	path = kocherga
+	url = https://github.com/Zubax/kocherga

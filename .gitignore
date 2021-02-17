@@ -1,0 +1,46 @@
+# Build outputs
+*.slo
+*.lo
+*.o
+*.obj
+*.so
+*.lai
+*.la
+*.a
+*.elf
+*.hex
+lib*.so
+lib*.so.*
+*.d
+.dep
+build
+*.cout
+*.pbd
+*.pbi
+*.browse
+
+# Python
+*.pyc
+__pycache__
+.ipynb_checkpoints
+
+# Temp files
+*.swp
+*~
+*.bak
+*.tmp
+*.log
+
+# Configuration files
+.gdbinit
+
+# IDE
+.idea
+.metadata
+.settings
+.project
+.cproject
+.pydevproject
+
+# Libuavcan generated headers
+dsdlc_generated
