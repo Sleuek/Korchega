@@ -21,30 +21,30 @@ inline void initLEDPWM()
     {
         os::CriticalSectionLocker cs;
         // Power-on and reset
-        RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;
-        RCC->APB1RSTR |=  RCC_APB1RSTR_TIM3RST;
-        RCC->APB1RSTR &= ~RCC_APB1RSTR_TIM3RST;
+        RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;
+        RCC->APB1RSTR |=  RCC_APB1RSTR_TIM5RST;
+        RCC->APB1RSTR &= ~RCC_APB1RSTR_TIM5RST;
     }
 
     static constexpr unsigned FrequencyDivisionRatio = 10;
 
-    TIM3->PSC = FrequencyDivisionRatio - 1U;
-    TIM3->ARR = 0xFFFF;
-    TIM3->CR1 = 0;
-    TIM3->CR2 = 0;
+    TIM5->PSC = FrequencyDivisionRatio - 1U;
+    TIM5->ARR = 0xFFFF;
+    TIM5->CR1 = 0;
+    TIM5->CR2 = 0;
 
     // CC2, CC3, CC4 are R, G, B. Inverted mode.
-    TIM3->CCMR1 = TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
-    TIM3->CCMR2 = TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC3M_1 |
+    TIM5->CCMR1 = TIM_CCMR1_OC2M_2 | TIM_CCMR1_OC2M_1;
+    TIM5->CCMR2 = TIM_CCMR2_OC3M_2 | TIM_CCMR2_OC3M_1 |
                   TIM_CCMR2_OC4M_2 | TIM_CCMR2_OC4M_1;
 
     // All enabled, all inverted.
-    TIM3->CCER = TIM_CCER_CC4E | TIM_CCER_CC3E | TIM_CCER_CC2E |
+    TIM5->CCER = TIM_CCER_CC4E | TIM_CCER_CC3E | TIM_CCER_CC2E |
                  TIM_CCER_CC4P | TIM_CCER_CC3P | TIM_CCER_CC2P;
 
     // Start
-    TIM3->EGR = TIM_EGR_UG | TIM_EGR_COMG;
-    TIM3->CR1 |= TIM_CR1_CEN;
+    TIM5->EGR = TIM_EGR_UG | TIM_EGR_COMG;
+    TIM5->CR1 |= TIM_CR1_CEN;
 }
 
 
@@ -261,9 +261,9 @@ void setRGBLED(float red, float green, float blue)
 {
     constexpr unsigned Multiplier = 0xFFFF;
 
-    TIM3->CCR2 = unsigned(red   * Multiplier + 0.4F);
-    TIM3->CCR3 = unsigned(green * Multiplier + 0.4F);
-    TIM3->CCR4 = unsigned(blue  * Multiplier + 0.4F);
+    TIM5->CCR2 = unsigned(red   * Multiplier + 0.4F);
+    TIM5->CCR3 = unsigned(green * Multiplier + 0.4F);
+    TIM5->CCR4 = unsigned(blue  * Multiplier + 0.4F);
 }
 
 void setCANActivityLED(const int interface_index, const bool state)

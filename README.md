@@ -18,6 +18,8 @@ chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:68:2: error: #error "TIM3 is n
 
 [STM32F4 page 31](https://www.st.com/resource/en/datasheet/stm32f446re.pdf) => TIM3 32 bits
 
+![Tableau de comparaison des TIMER du STM32L4]("./images/TIML4.png")
+
 ## Start of tutorial
 
 You need the `korchega-demo` directory to continue. 
