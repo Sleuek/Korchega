@@ -3,9 +3,9 @@ Kocherga Bootloader Build from zero
 ## Branches
 
 There is :
-- _main_ : with STM32F4 code
-- _STM32F4_ : with STM32F4 code
-- _STM32L496_ : with STM32L496 code
+- [_main_](https://github.com/Sleuek/Korchega/tree/main) : with STM32F4 code
+- [_STM32F4_](https://github.com/Sleuek/Korchega/tree/STM32F4): with STM32F4 code
+- [_STM32L496_](https://github.com/Sleuek/Korchega/tree/STM32L496): with STM32L496 code
 
 ## Start of tutorial
 You need the `korchega-demo` directory to continue. 
