@@ -260,7 +260,6 @@ HardwareVersion detectHardwareVersion()
 void setRGBLED(float red, float green, float blue)
 {
     constexpr unsigned Multiplier = 0xFFFF;
-
     TIM5->CCR2 = unsigned(red   * Multiplier + 0.4F);
     TIM5->CCR3 = unsigned(green * Multiplier + 0.4F);
     TIM5->CCR4 = unsigned(blue  * Multiplier + 0.4F);
