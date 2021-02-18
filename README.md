@@ -5,11 +5,18 @@ Kocherga
 
 Now in dev to change the hardware target from STM32F4 to STM32L4.
 
-The error for this commit :
+### Errors
+
+#### Error 1
 ```
 chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:68:2: error: #error "TIM3 is not a 32bits timer"
 ```
+F4 has the TIM3 of 32 bits but L4 have TIM3 of 16 bits
 
+
+
+[STM32L4 page 50](https://www.st.com/resource/en/datasheet/stm32l496re.pdf) TIM3 16 bits
+[STM32F4 page 31](https://www.st.com/resource/en/datasheet/stm32f446re.pdf) TIM3 32 bits
 
 ## Start of tutorial
 
