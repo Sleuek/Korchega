@@ -20,6 +20,13 @@ chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:68:2: error: #error "TIM3 is n
 
 ![Tableau de comparaison des TIMER du STM32L4](./images/TIML4.png)
 
+Tried to change TIM3 into TIM5 in `/src/board/board.cpp` but did'nt work yet...
+```
+    TIM5->PSC = FrequencyDivisionRatio - 1U;
+    TIM5->ARR = 0xFFFF;
+    TIM5->CR1 = 0;
+    TIM5->CR2 = 0;
+```
 ## Start of tutorial
 
 You need the `korchega-demo` directory to continue. 
