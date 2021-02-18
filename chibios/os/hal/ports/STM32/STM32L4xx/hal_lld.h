@@ -588,8 +588,8 @@
  * @brief   PLLSAI1P divider value.
  * @note    The allowed values are 7, 17.
  */
-#if !defined(STM32_PLLSAI1P_VALUE) || defined(__DOXYGEN__)
-#define STM32_PLLSAI1P_VALUE                7
+#if !defined(STM32_PLLSAI1PDIV_VALUE) || defined(__DOXYGEN__)
+#define STM32_PLLSAI1PDIV_VALUE                7
 #endif
 
 /**
@@ -1527,14 +1527,14 @@
 /**
  * @brief   STM32_PLLSAI1P field.
  */
-#if (STM32_PLLSAI1P_VALUE == 7) || defined(__DOXYGEN__)
+#if (STM32_PLLSAI1PDIV_VALUE == 7) || defined(__DOXYGEN__)
 #define STM32_PLLSAI1P              (0 << 17)
 
-#elif STM32_PLLSAI1P_VALUE == 17
+#elif STM32_PLLSAI1PDIV_VALUE == 17
 #define STM32_PLLSAI1P              (1 << 17)
 
 #else
-#error "invalid STM32_PLLSAI1P_VALUE value specified"
+#error "invalid STM32_PLLSAI1PDIV_VALUE value specified"
 #endif
 
 /**
@@ -1632,7 +1632,7 @@
 /**
  * @brief   PLLSAI1-P output clock frequency.
  */
-#define STM32_PLLSAI1_P_CLKOUT      (STM32_PLLSAI1VCO / STM32_PLLSAI1P_VALUE)
+#define STM32_PLLSAI1_P_CLKOUT      (STM32_PLLSAI1VCO / STM32_PLLSAI1PDIV_VALUE)
 
 /**
  * @brief   PLLSAI1-Q output clock frequency.

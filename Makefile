@@ -94,9 +94,8 @@ include $(CHIBIOS)/os/various/cpp_wrappers/chcpp.mk
 include $(CHIBIOS)/os/hal/lib/streams/streams.mk
 
 # MCU-specific OS includes
-#L4 -> Nucleo
-include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk
-include $(CHIBIOS)/os/hal/ports/STM32/STM32F4xx/platform.mk
+include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32l4xx.mk
+include $(CHIBIOS)/os/hal/ports/STM32/STM32L4xx/platform.mk
 include $(CHIBIOS)/os/common/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk
 
 VARIOUSSRC = $(STREAMSSRC) \
