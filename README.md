@@ -1,6 +1,13 @@
 Kocherga Bootloader Build from zero
 =============
+## Branches
 
+There is :
+- _main_ : with STM32F4 code
+- _STM32F4_ : with STM32F4 code
+- _STM32L496_ : with STM32L496 code
+
+## Start of tutorial
 You need the `korchega-demo` directory to continue. 
 
 You can download it  : [here](https://forum.uavcan.org/uploads/default/original/1X/ff46c01e949be32df97402b1bfd25677c0c226f6.gz) the link is provided by [Pavel Kirienko](https://forum.uavcan.org/t/canardrxtransfer-payload-reading/600/17)
