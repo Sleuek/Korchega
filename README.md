@@ -20,13 +20,30 @@ chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:68:2: error: #error "TIM3 is n
 
 ![Tableau de comparaison des TIMER du STM32L4](./images/TIML4.png)
 
-Tried to change TIM3 into TIM5 in `/src/board/board.cpp` but did'nt work yet...
+### Solution 1
+
+Change TIM3 into TIM5 in `/src/board/board.cpp` with your replacing tool. You should have something like this :
 ```
     TIM5->PSC = FrequencyDivisionRatio - 1U;
     TIM5->ARR = 0xFFFF;
     TIM5->CR1 = 0;
     TIM5->CR2 = 0;
 ```
+In `/src/os/mcuconf.cpp` line 284 change 
+```
+#define STM32_ST_USE_TIMER                  3
+```
+into 
+```
+#define STM32_ST_USE_TIMER                  5
+```
+
+### Error 2
+```
+chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:123:2: error: #error "ST requires TIM5 but the timer is already used"
+ #error "ST requires TIM5 but the timer is already used"
+```
+
 ## Start of tutorial
 
 You need the `korchega-demo` directory to continue. 

@@ -65,6 +65,7 @@
 
 #elif STM32_ST_USE_TIMER == 3
 #if (OSAL_ST_RESOLUTION == 32) && !STM32_TIM3_IS_32BITS
+  display( STM32_ST_USE_TIMER );
 #error "TIM3 is not a 32bits timer"
 #endif
 
