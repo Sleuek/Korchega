@@ -65,7 +65,6 @@
 
 #elif STM32_ST_USE_TIMER == 3
 #if (OSAL_ST_RESOLUTION == 32) && !STM32_TIM3_IS_32BITS
-  display( STM32_ST_USE_TIMER );
 #error "TIM3 is not a 32bits timer"
 #endif
 
@@ -116,10 +115,12 @@
 
 #elif STM32_ST_USE_TIMER == 5
 #if (OSAL_ST_RESOLUTION == 32) && !STM32_TIM5_IS_32BITS
+  display( STM32_ST_USE_TIMER );
 #error "TIM5 is not a 32bits timer"
 #endif
 
 #if defined(STM32_TIM5_IS_USED)
+  display( STM32_ST_USE_TIMER );
 #error "ST requires TIM5 but the timer is already used"
 #else
 #define STM32_TIM5_IS_USED

@@ -51,6 +51,10 @@ chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:123:2: error: #error "ST requi
 ```
 Solution :
 
+Temporary in `/src/os/mcuconf.cpp` line 221 change from `TRUE` to `FALSE`
+```
+#define STM32_PWM_USE_TIM5                  FALSE
+```
 
 </details>
 
