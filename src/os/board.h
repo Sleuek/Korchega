@@ -68,7 +68,7 @@
  * IO pins assignments.
  */
 #define GPIOA_WS2812_CMD            0U
-#define GPIOA_ARM_ID               1U
+#define GPIOA_ARM_ID                1U
 #define GPIOA_USART2_TX             2U
 #define GPIOA_USART2_RX             3U
 #define GPIOA_PIN4                  4U
@@ -137,6 +137,7 @@
 #define GPIOD_PIN13                 13U
 #define GPIOD_PIN14                 14U
 #define GPIOD_PIN15                 15U
+#define GPIOD_CAN_POWER_OUTPUT_ENABLE   2
 
 #define GPIOE_PIN0                  0U
 #define GPIOE_PIN1                  1U

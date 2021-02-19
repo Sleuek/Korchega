@@ -64,7 +64,7 @@ Temporary in `/src/os/mcuconf.cpp` line 221 change from `TRUE` to `FALSE`
 
 
 <details close>
-<summary> **ERROR 3**  </summary>
+<summary> **ERROR 3** (fixed) </summary>
 
 ### Description 
 
@@ -76,8 +76,24 @@ sequential_rom_writer.hpp:95:21: error: 'FLASH_CR_SER' was not declared in this 
 
 ### Solution :
 
+Get the solution by comparing with commit [2fc3d83](https://github.com/Sleuek/Korchega/commit/2fc3d83622ded9523d7ac381946512096c408322) 
+
 </details>
 
+
+<details close>
+<summary> **ERROR 4**  </summary>
+
+### Description 
+
+Error with SerialUSBDriver, all others errors are depending on this reference here i think.
+```
+src/board/usb/usb.hpp:22:1: error: 'SerialUSBDriver' does not name a type; did you mean 'SerialDriver'?
+```
+
+### Solution :
+
+</details>
 
 
 

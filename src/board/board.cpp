@@ -21,9 +21,15 @@ inline void initLEDPWM()
     {
         os::CriticalSectionLocker cs;
         // Power-on and reset
-        RCC->APB1ENR |= RCC_APB1ENR_TIM5EN;
+#if defined(STM32L496xx)
+        RCC->APB1ENR1  |=  RCC_APB1ENR1_TIM5EN;
+        RCC->APB1RSTR1 |=  RCC_APB1RSTR1_TIM5RST;
+        RCC->APB1RSTR1 &= ~RCC_APB1RSTR1_TIM5RST;
+#else
+        RCC->APB1ENR  |=  RCC_APB1ENR_TIM5EN;
         RCC->APB1RSTR |=  RCC_APB1RSTR_TIM5RST;
         RCC->APB1RSTR &= ~RCC_APB1RSTR_TIM5RST;
+#endif
     }
 
     static constexpr unsigned FrequencyDivisionRatio = 10;
@@ -52,18 +58,33 @@ inline void initCAN()
 {
     os::CriticalSectionLocker locker;
 
+ #if defined(STM32L496xx)
+    RCC->APB1ENR1  |=  RCC_APB1ENR1_CAN1EN;           // CAN1
+    RCC->APB1RSTR1 |=  RCC_APB1RSTR1_CAN1RST;
+    RCC->APB1RSTR1 &= ~RCC_APB1RSTR1_CAN1RST;
+#else
     RCC->APB1ENR  |=  RCC_APB1ENR_CAN1EN;           // CAN1
     RCC->APB1RSTR |=  RCC_APB1RSTR_CAN1RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_CAN1RST;
+#endif
     // CAN2 is not used
 }
 
 
 inline std::uint8_t readHardwareID()
 {
-    return std::uint8_t((palReadPad(GPIOC, GPIOC_HARDWARE_ID_BIT_0) << 0) |
-                        (palReadPad(GPIOC, GPIOC_HARDWARE_ID_BIT_1) << 1) |
-                        (palReadPad(GPIOC, GPIOC_HARDWARE_ID_BIT_2) << 2));
+     #if defined(STM32L496xx)
+        return std::uint8_t((PAL_LOW << 0) |
+                            (PAL_LOW << 1) |
+                            (PAL_LOW << 2));
+    #else
+        return std::uint8_t((palReadPad(GPIOC, GPIOC_HARDWARE_ID_BIT_0) << 0) |
+                            (palReadPad(GPIOC, GPIOC_HARDWARE_ID_BIT_1) << 1) |
+                            (palReadPad(GPIOC, GPIOC_HARDWARE_ID_BIT_2) << 2));
+    #endif
+    
+
+    
 }
 
 }   // namespace
@@ -187,7 +208,17 @@ void bootApplication()
 
     // Deinit all peripherals that may have been used
     // It is crucial to disable ALL peripherals, else a spurious interrupt will crash the application
+#if defined(STM32L496xx)
+    RCC->APB1RSTR1 |= (RCC_APB1RSTR1_CAN1RST | RCC_APB1RSTR1_USART3RST);
+# if UAVCAN_STM32_NUM_IFACES > 1
+    RCC->APB1RSTR1 |=  RCC_APB1RSTR1_CAN2RST;
+# endif
+#else
     RCC->APB1RSTR |=  (RCC_APB1RSTR_CAN1RST | RCC_APB1RSTR_CAN2RST | RCC_APB1RSTR_USART3RST);
+# if UAVCAN_STM32_NUM_IFACES > 1
+    RCC->APB1RSTR1 |=  RCC_APB1RSTR1_CAN2RST;
+# endif
+#endif
     RCC->AHB2RSTR |=  RCC_AHB2RSTR_OTGFSRST;
 
     // Kill the sys tick
@@ -269,11 +300,21 @@ void setCANActivityLED(const int interface_index, const bool state)
 {
     if (interface_index == 0)
     {
+    #if defined(STM32L496xx)
+        palWriteLine(LINE_LED_SYSTEM, unsigned(!state));
+    #else
         palWritePad(GPIOB, GPIOB_CAN1_LED_INVERSE, unsigned(!state));
+    #endif
+    
     }
     else if (interface_index == 1)
     {
-        palWritePad(GPIOA, GPIOA_CAN2_LED_INVERSE, unsigned(!state));
+    #if defined(STM32L496xx)
+         palWriteLine(LINE_LED_ALIVE, unsigned(!state));
+    #else
+         palWritePad(GPIOA, GPIOA_CAN2_LED_INVERSE, unsigned(!state));
+    #endif
+       
     }
     else
     {
@@ -283,7 +324,12 @@ void setCANActivityLED(const int interface_index, const bool state)
 
 void setCANBusPowerOutputEnabled(bool enabled)
 {
-    palWritePad(GPIOD, GPIOD_CAN_POWER_OUTPUT_ENABLE, unsigned(enabled));
+    #if defined(STM32L496xx)
+        palWritePad(GPIOD, GPIOD_CAN_POWER_OUTPUT_ENABLE, unsigned(enabled));
+    #else
+         palWritePad(GPIOD, GPIOD_CAN_POWER_OUTPUT_ENABLE, unsigned(enabled));
+    #endif
+    
 }
 
 } // namespace board
@@ -343,29 +389,50 @@ void __early_init(void)
     initGPIO();
     stm32_clock_init();
 
-    // CAN
-    RCC->APB1RSTR |=  (RCC_APB1RSTR_CAN1RST | RCC_APB1RSTR_CAN2RST);
-    RCC->APB1RSTR &= ~(RCC_APB1RSTR_CAN1RST | RCC_APB1RSTR_CAN2RST);
+     // CAN
+#if defined(STM32L496xx)
+    RCC->APB1RSTR1 |=  RCC_APB1RSTR1_CAN1RST;
+    RCC->APB1RSTR1 &= ~RCC_APB1RSTR1_CAN1RST;
+# if UAVCAN_STM32_NUM_IFACES > 1
+    RCC->APB1RSTR |=  RCC_APB1RSTR2_CAN2RST;
+    RCC->APB1RSTR &= ~RCC_APB1RSTR2_CAN2RST;
+# endif
+#else
+    RCC->APB1RSTR |=  RCC_APB1RSTR_CAN1RST;
+    RCC->APB1RSTR &= ~RCC_APB1RSTR_CAN1RST;
+# if UAVCAN_STM32_NUM_IFACES > 1
+    RCC->APB1RSTR |=  RCC_APB1RSTR_CAN2RST;
+    RCC->APB1RSTR &= ~RCC_APB1RSTR_CAN2RST;
+# endif
+#endif
 
-    CAN1->IER = CAN2->IER = 0;                                  // Disable interrupts
-    CAN1->MCR = CAN2->MCR = CAN_MCR_SLEEP | CAN_MCR_RESET;      // Software reset
+    CAN1->IER = 0;                                  // Disable interrupts
+    CAN1->MCR = CAN_MCR_SLEEP | CAN_MCR_RESET;      // Software reset
+#if UAVCAN_STM32_NUM_IFACES > 1
+    CAN2->IER = 0;
+    CAN2->MCR = CAN_MCR_SLEEP | CAN_MCR_RESET;
+#endif
 
     NVIC_ClearPendingIRQ(CAN1_RX0_IRQn);
     NVIC_ClearPendingIRQ(CAN1_RX1_IRQn);
     NVIC_ClearPendingIRQ(CAN1_TX_IRQn);
     NVIC_ClearPendingIRQ(CAN1_SCE_IRQn);
 
+#if UAVCAN_STM32_NUM_IFACES > 1
     NVIC_ClearPendingIRQ(CAN2_RX0_IRQn);
     NVIC_ClearPendingIRQ(CAN2_RX1_IRQn);
     NVIC_ClearPendingIRQ(CAN2_TX_IRQn);
     NVIC_ClearPendingIRQ(CAN2_SCE_IRQn);
+#endif
 
     // USB
     RCC->AHB2RSTR |=  RCC_AHB2RSTR_OTGFSRST;
     RCC->AHB2RSTR &= ~RCC_AHB2RSTR_OTGFSRST;
 
     NVIC_ClearPendingIRQ(OTG_FS_IRQn);
+#if !defined(STM32L496xx)
     NVIC_ClearPendingIRQ(OTG_FS_WKUP_IRQn);
+#endif
 }
 
 void boardInit(void)

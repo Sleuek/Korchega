@@ -27,7 +27,8 @@ UDEFS = -DBL_VERSION_MAJOR=$(BL_VERSION_MAJOR)           \
         -DHW_VERSION_MAJOR=$(HW_VERSION_MAJOR)           \
         -DAPPLICATION_OFFSET=$(APPLICATION_OFFSET)       \
         -DPRODUCT_ID_STRING=\"$(PROJECT)\"               \
-        -DPRODUCT_NAME_STRING=\"Kocherga\ Demo\"
+        -DPRODUCT_NAME_STRING=\"Kocherga\ Demo\"         \
+        -DUAVCAN_STM32_NUM_IFACES=1    
 
 #
 # Libcanard library
@@ -70,6 +71,7 @@ USE_PROCESS_STACKSIZE = 0x1000
 USE_EXCEPTIONS_STACKSIZE = 0x1000
 
 DDEFS += -DCRT1_AREAS_NUMBER=0
+UDEFS += -DSTDOUT_SD=SD2 -DSTDIN_SD=STDOUT_SD 
 
 USE_OPT += -Wdouble-promotion -Wswitch-enum -Wfloat-equal -fno-strict-aliasing -fno-strict-overflow	\
            -Wno-implicit-fallthrough
