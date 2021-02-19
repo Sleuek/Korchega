@@ -21,8 +21,8 @@ chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:68:2: error: #error "TIM3 is n
 
 ![Tableau de comparaison des TIMER du STM32L4](./images/TIML4.png)
 
-========
-**Solution :**
+
+### Solution :
 
 Change TIM3 into TIM5 in `/src/board/board.cpp` with your replacing tool. You should have something like this :
 ```
@@ -52,8 +52,7 @@ chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:123:2: error: #error "ST requi
  #error "ST requires TIM5 but the timer is already used"
 ```
 
-========
-**Solution :**
+### Solution :
 
 Temporary in `/src/os/mcuconf.cpp` line 221 change from `TRUE` to `FALSE`
 ```
