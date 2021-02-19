@@ -76,7 +76,7 @@ sequential_rom_writer.hpp:95:21: error: 'FLASH_CR_SER' was not declared in this 
 
 ### Solution :
 
-Get the solution by comparing with commit [2fc3d83](https://github.com/Sleuek/Korchega/commit/2fc3d83622ded9523d7ac381946512096c408322) 
+Get the solution by comparing with commit [2fc3d83](https://github.com/Sleuek/Korchega/commit/2fc3d83622ded9523d7ac381946512096c408322) (you can specify the src folder -> board.cpp board.h sequential_rom_writer.hpp)
 
 </details>
 
