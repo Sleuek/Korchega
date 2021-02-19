@@ -8,7 +8,7 @@ Now in dev to change the hardware target from STM32F4 to STM32L4.
 ### Errors
 <details close>
 <summary>ERROR 1</summary>
-
+========
 F4 has the TIM3 of 32 bits but L4 have TIM3 of 16 bits
 
 ```
@@ -21,7 +21,8 @@ chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:68:2: error: #error "TIM3 is n
 
 ![Tableau de comparaison des TIMER du STM32L4](./images/TIML4.png)
 
-Solution :
+========
+**Solution :**
 
 Change TIM3 into TIM5 in `/src/board/board.cpp` with your replacing tool. You should have something like this :
 ```
@@ -45,11 +46,14 @@ into
 <details close>
 <summary>ERROR 2</summary>
 
+========
 ```
 chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:123:2: error: #error "ST requires TIM5 but the timer is already used"
  #error "ST requires TIM5 but the timer is already used"
 ```
-Solution :
+
+========
+**Solution :**
 
 Temporary in `/src/os/mcuconf.cpp` line 221 change from `TRUE` to `FALSE`
 ```
