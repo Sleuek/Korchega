@@ -227,3 +227,17 @@ If either of the watchdog timers is known to have caused the last reset,
 the bootloader will inject a 10 second timeout before booting the application,
 allowing external systems or the user to intervene and replace the bad firmware.
 The reset cause flags are cleared by the bootloader.
+
+## Applicatif
+
+Une fois flashé, il faut pouvoir récupérer les identifiants des noeuds.
+
+### Objectif
+
+Créer une partie application permettant de recupérer l'identifiant du noeaud sur le bus UAVCAN
+
+- Le STM boot avec le nouveau bootloader.
+- Chargement des blibliothèques UAVCAN
+- La partie applicative du STM (SMARTARM) doit pouvoir récupérer les identifiants sur le bus.
+
+
