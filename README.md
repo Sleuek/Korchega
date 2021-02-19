@@ -101,7 +101,11 @@ Add some HAL configuration commands in `mcuconf.h`:
 
 </details>
 
-
+Finished with success :
+```
+cd build && mv -f kocherga_demo.bin bootloader.bin
+cd build && mv -f kocherga_demo.elf bootloader.elf
+```
 
 
 
