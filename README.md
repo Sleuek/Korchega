@@ -228,6 +228,25 @@ the bootloader will inject a 10 second timeout before booting the application,
 allowing external systems or the user to intervene and replace the bad firmware.
 The reset cause flags are cleared by the bootloader.
 
+## Flashing bootloader
+```
+st-flash write bootloader.bin 0x8000000
+```
+```
+st-flash 1.6.0
+2021-02-19T15:30:45 INFO common.c: Loading device parameters....
+2021-02-19T15:30:45 INFO common.c: Device connected is: L496x/L4A6x device, id 0x20006461
+2021-02-19T15:30:45 INFO common.c: SRAM size: 0x40000 bytes (256 KiB), Flash: 0x80000 bytes (512 KiB) in pages of 2048 bytes
+2021-02-19T15:30:45 INFO common.c: Attempting to write 41480 (0xa208) bytes to stm32 address: 134217728 (0x8000000)
+Flash page at addr: 0x0800a000 erasedEraseFlash - Page:0x14 Size:0x800 
+2021-02-19T15:30:46 INFO common.c: Finished erasing 21 pages of 2048 (0x800) bytes
+2021-02-19T15:30:46 INFO common.c: Starting Flash write for F2/F4/L4
+2021-02-19T15:30:46 INFO flash_loader.c: Successfully loaded flash loader in sram
+size: 32768
+size: 8712
+2021-02-19T15:30:47 INFO common.c: Starting verification of write complete
+2021-02-19T15:30:48 INFO common.c: Flash written and verified! jolly good!
+```
 ## Applicatif
 
 Une fois flashé, il faut pouvoir récupérer les identifiants des noeuds.
