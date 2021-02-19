@@ -37,8 +37,13 @@ static void emergencyPrint(const char* str)
 {
     for (const char *p = str; *p; p++)
     {
+    #if defined(STM32L496xx)
+        while (!(STDOUT_SD.usart->ISR & USART_ISR_TXE)) { }
+        STDOUT_SD.usart->RDR = *p;
+    #else
         while (!(STDOUT_SD.usart->SR & USART_SR_TXE)) { }
         STDOUT_SD.usart->DR = *p;
+    #endif
     }
 }
 

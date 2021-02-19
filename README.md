@@ -82,7 +82,7 @@ Get the solution by comparing with commit [2fc3d83](https://github.com/Sleuek/Ko
 
 
 <details close>
-<summary> **ERROR 4**  </summary>
+<summary> **ERROR 4** (fixed) </summary>
 
 ### Description 
 
