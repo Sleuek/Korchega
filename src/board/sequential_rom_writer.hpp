@@ -33,7 +33,9 @@ class SequentialROMWriter
         {
             assert(!(FLASH->SR & FLASH_SR_WRPRTERR));
             assert(!(FLASH->SR & FLASH_SR_PGAERR));
+    #if !defined(STM32L496xx)
             assert(!(FLASH->SR & FLASH_SR_PGPERR));
+    #endif
             assert(!(FLASH->SR & FLASH_SR_PGSERR));
         }
         while (FLASH->SR & FLASH_SR_BSY);
@@ -52,7 +54,11 @@ class SequentialROMWriter
                 FLASH->KEYR = 0x45670123UL;
                 FLASH->KEYR = 0xCDEF89ABUL;
             }
+ #if !defined(STM32L496xx)
             FLASH->SR |= FLASH_SR_EOP | FLASH_SR_WRPRTERR | FLASH_SR_PGAERR | FLASH_SR_PGPERR | FLASH_SR_PGSERR;
+#else
+            FLASH->SR |= FLASH_SR_EOP | FLASH_SR_WRPRTERR | FLASH_SR_PGAERR | FLASH_SR_PGSERR;
+#endif
             FLASH->CR = 0;
         }
 
@@ -92,7 +98,11 @@ class SequentialROMWriter
     static void eraseSector(std::uint8_t sector_index)
     {
         Prologuer prologuer;
+#if defined(STM32L496xx)
+        FLASH->CR = FLASH_CR_PER | (sector_index << 3);
+#else
         FLASH->CR = FLASH_CR_SER | (sector_index << 3);
+#endif
         FLASH->CR |= FLASH_CR_STRT;
         waitReady();
         FLASH->CR = 0;
@@ -170,7 +180,11 @@ public:
         {
             Prologuer prologuer;
 
+#if defined(STM32L496xx)
+            FLASH->CR = FLASH_CR_PG;
+#else
             FLASH->CR = FLASH_CR_PG | FLASH_CR_PSIZE_0;
+#endif
 
             for (std::size_t i = 0; i < num_halfwords; i++)
             {
