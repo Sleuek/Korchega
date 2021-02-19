@@ -7,7 +7,7 @@ Now in dev to change the hardware target from STM32F4 to STM32L4.
 
 ### Errors
 <details close>
-<summary>ERROR 1</summary>
+<summary> **ERROR 1** </summary>
 
 ### Description
 F4 has the TIM3 of 32 bits but L4 have TIM3 of 16 bits
@@ -45,7 +45,7 @@ into
 
 
 <details close>
-<summary>ERROR 2</summary>
+<summary> **ERROR 2** </summary>
 
 ### Description 
 ```
