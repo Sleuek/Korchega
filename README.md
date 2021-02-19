@@ -93,6 +93,12 @@ src/board/usb/usb.hpp:22:1: error: 'SerialUSBDriver' does not name a type; did y
 
 ### Solution :
 
+Add some HAL configuration commands in `mcuconf.h`:
+```
+#define HAL_USE_USB                         TRUE
+#define HAL_USE_SERIAL_USB                  TRUE
+```
+
 </details>
 
 

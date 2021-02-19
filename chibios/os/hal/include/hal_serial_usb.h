@@ -77,9 +77,9 @@
  * @brief Driver state machine possible states.
  */
 typedef enum {
-  SDU_UNINIT = 0,                   /**< Not initialized.                   */
-  SDU_STOP = 1,                     /**< Stopped.                           */
-  SDU_READY = 2                     /**< Ready.                             */
+    SDU_UNINIT = 0,                   /**< Not initialized.                   */
+    SDU_STOP = 1,                     /**< Stopped.                           */
+    SDU_READY = 2                     /**< Ready.                             */
 } sdustate_t;
 
 /**

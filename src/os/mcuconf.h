@@ -36,6 +36,8 @@
 /*
  * HAL driver system settings.
  */
+#define HAL_USE_USB                         TRUE
+#define HAL_USE_SERIAL_USB                  TRUE
 #define STM32_NO_INIT                       FALSE
 #define STM32_VOS                           STM32_VOS_RANGE1
 #define STM32_PVD_ENABLE                    FALSE
@@ -90,6 +92,7 @@
 #define STM32_SWPMI1SEL                     STM32_SWPMI1SEL_PCLK1
 #define STM32_DFSDMSEL                      STM32_DFSDMSEL_PCLK1
 #define STM32_RTCSEL                        STM32_RTCSEL_LSI
+
 
 /*
  * IRQ system settings.
