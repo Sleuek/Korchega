@@ -229,6 +229,11 @@ allowing external systems or the user to intervene and replace the bad firmware.
 The reset cause flags are cleared by the bootloader.
 
 ## Flashing bootloader
+You need first to install st-link library :
+```
+sudo apt-get install st-link
+```
+Next you can flash your fresh bootloader with :
 ```
 st-flash write bootloader.bin 0x8000000
 ```

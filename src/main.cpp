@@ -81,7 +81,7 @@ void setStatusLEDFromBootloaderState(const kocherga::State s)
     default:
     {
         assert(false);
-        board::setRGBLED(0.0F, 0.0F, 0.0F);
+        board::setRGBLED(1.0F, 1.0F, 1.0F);
         break;
     }
     }
