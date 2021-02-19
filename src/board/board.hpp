@@ -10,7 +10,7 @@
 #include <cstdint>
 #include <chrono>
 #include <array>
-
+#include <../os/board.h>
 
 namespace board
 {

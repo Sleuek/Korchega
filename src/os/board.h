@@ -100,6 +100,9 @@
 #define GPIOB_CAN_2_TX              13U
 #define GPIOB_CAN_2_SHDN            14U
 #define GPIOB_CAN_2_SILENT          15U
+//Added by Arthur to fix board.hpp errors
+#define GPIOB_TEST_1                    3
+#define GPIOB_TEST_2                    4
 
 #define GPIOC_EXT_I2C_SCL           0U
 #define GPIOC_EXT_I2C_SDA           1U

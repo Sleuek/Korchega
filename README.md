@@ -7,7 +7,7 @@ Now in dev to change the hardware target from STM32F4 to STM32L4.
 
 ### Errors
 <details close>
-<summary> **ERROR 1** </summary>
+<summary> **ERROR 1** (fixed)</summary>
 
 ### Description
 F4 has the TIM3 of 32 bits but L4 have TIM3 of 16 bits
@@ -45,7 +45,7 @@ into
 
 
 <details close>
-<summary> **ERROR 2** </summary>
+<summary> **ERROR 2** (fixed) </summary>
 
 ### Description 
 ```
@@ -59,6 +59,22 @@ Temporary in `/src/os/mcuconf.cpp` line 221 change from `TRUE` to `FALSE`
 ```
 #define STM32_PWM_USE_TIM5                  FALSE
 ```
+
+</details>
+
+
+<details close>
+<summary> **ERROR 3**  </summary>
+
+### Description 
+
+Error with flashing signals like 
+```
+sequential_rom_writer.hpp:55:79: error: 'FLASH_SR_PGPERR' was not declared in this scope
+sequential_rom_writer.hpp:95:21: error: 'FLASH_CR_SER' was not declared in this scope
+```
+
+### Solution :
 
 </details>
 
