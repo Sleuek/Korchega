@@ -6,9 +6,9 @@ Kocherga
 Now in dev to change the hardware target from STM32F4 to STM32L4.
 
 ### Errors
-<details open>
-<summary>#### Error 1</summary>
-<br>
+<details close>
+<summary>ERROR 1</summary>
+#### Error 1
 F4 has the TIM3 of 32 bits but L4 have TIM3 of 16 bits
 
 ```
@@ -74,11 +74,60 @@ into
 #define STM32_ST_USE_TIMER                  5
 ```
 
+
+<details close>
+<summary>ERROR 1</summary>
+#### Error 1
+F4 has the TIM3 of 32 bits but L4 have TIM3 of 16 bits
+
+```
+chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:68:2: error: #error "TIM3 is not a 32bits timer"
+```
+
+[STM32L4 page 50](https://www.st.com/resource/en/datasheet/stm32l496re.pdf) => TIM3 16 bits
+
+[STM32F4 page 31](https://www.st.com/resource/en/datasheet/stm32f446re.pdf) => TIM3 32 bits
+
+![Tableau de comparaison des TIMER du STM32L4](./images/TIML4.png)
+
+### Solution 1
+
+Change TIM3 into TIM5 in `/src/board/board.cpp` with your replacing tool. You should have something like this :
+```
+    TIM5->PSC = FrequencyDivisionRatio - 1U;
+    TIM5->ARR = 0xFFFF;
+    TIM5->CR1 = 0;
+    TIM5->CR2 = 0;
+```
+In `/src/os/mcuconf.cpp` line 284 change 
+```
+#define STM32_ST_USE_TIMER                  3
+```
+into 
+```
+#define STM32_ST_USE_TIMER                  5
+```
+
+</details>
+
+<details close>
+<summary>ERROR 2</summary>
 ### Error 2
 ```
 chibios/os/hal/ports/STM32/LLD/TIMv1/hal_st_lld.c:123:2: error: #error "ST requires TIM5 but the timer is already used"
  #error "ST requires TIM5 but the timer is already used"
 ```
+### Solution 2
+
+
+</details>
+
+
+
+
+
+
+
 
 ## Start of tutorial
 
