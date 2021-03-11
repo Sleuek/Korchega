@@ -7,6 +7,7 @@
 #include <ch.hpp>
 #include <cstring>
 #include <unistd.h>
+#include "chprintf.h"
 
 /// Provided by the linker
 const extern std::uint8_t DeviceSignatureStorage[];
@@ -63,7 +64,7 @@ inline void initCAN()
     RCC->APB1RSTR1 |=  RCC_APB1RSTR1_CAN1RST;
     RCC->APB1RSTR1 &= ~RCC_APB1RSTR1_CAN1RST;
 #else
-    RCC->APB1ENR  |=  RCC_APB1ENR_CAN1EN;           // CAN1
+    RCC->APB1ENR  |=  RCC_APB1ENR_CAN1EN;           
     RCC->APB1RSTR |=  RCC_APB1RSTR_CAN1RST;
     RCC->APB1RSTR &= ~RCC_APB1RSTR_CAN1RST;
 #endif
@@ -127,8 +128,23 @@ ResetCause init(std::chrono::milliseconds watchdog_timeout)
     /*
      * Serial port - should be initialized early because it is used to report debug data
      */
-    sdStart(&STDOUT_SD, nullptr);
-
+    
+    
+ /*
+    static SerialConfig config = {
+    115200U,                             
+    0,
+    0,
+    0
+    };*/
+    palSetPadMode( GPIOA, 3 , PAL_MODE_ALTERNATE( 7 ) );
+    palSetPadMode( GPIOA, 4 , PAL_MODE_ALTERNATE( 7 ) );
+    sdStart(&SD2, NULL);
+    chprintf( (BaseSequentialStream * )&SD2, "InitializeBoard\r\n");
+    chprintf( (BaseSequentialStream * )&SD2, "===============\r\n");
+    chprintf( (BaseSequentialStream * )&SD2, "_______________\r\n");
+    chprintf( (BaseSequentialStream * )&SD2, "---------------\r\n");
+    
     /*
      * Watchdog
      * We do not enable it in debug builds in order to not interfere with debugging
@@ -161,9 +177,9 @@ ResetCause init(std::chrono::milliseconds watchdog_timeout)
     /*
      * Interfaces
      */
-    initLEDPWM();
+   // initLEDPWM();
 
-    initCAN();
+    //initCAN();
 
     kickWatchdog();
 

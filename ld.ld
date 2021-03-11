@@ -14,8 +14,9 @@ MEMORY
      *  48896        48K        256     Digital signature
      *    48K                           Application
      */
+     /* CHANGING ACCORDING TO GNSS BOOTLOADER  
+    flash : org = 0x08000000, len = 48K */
     flash : org = 0x08000000, len = 48896
-
     /*
      * We use both SRAM1 and SRAM2 as a single contiguous memory region.
      * The very end of SRAM2 is used for app-bootloader communication;
@@ -27,7 +28,9 @@ MEMORY
      *      0     130816    130816    Bootloader
      * 130816       128K       256    Reserved space for bootloader-application data exchange
      */
-    ram   : org = 0x20000000, len = 130816
+     /* CHANGING ACCORDING TO GNSS BOOTLOADER  
+    ram   : org = 0x20000000, len = 128K*/
+    ram   : org = 0x20000100, len = 130816
 }
 
 

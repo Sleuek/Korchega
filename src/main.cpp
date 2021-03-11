@@ -25,9 +25,9 @@ namespace app
 namespace
 {
 
-constexpr std::chrono::seconds WatchdogTimeout(10);
+constexpr std::chrono::seconds WatchdogTimeout(30);
 
-constexpr std::chrono::seconds BootDelayAfterWatchdogTimedOut(10);
+constexpr std::chrono::seconds BootDelayAfterWatchdogTimedOut(30);
 
 
 class Platform : public kocherga::IPlatform
@@ -111,7 +111,6 @@ void doBoot()
     board::kickWatchdog();    // The final reset, the application will have time to boot and init until next timeout
     board::bootApplication();
 }
-
 }  // namespace
 }  // namespace app
 
@@ -217,9 +216,8 @@ int main()
         {
             break;
         }
-
+        
         app::setStatusLEDFromBootloaderState(bl_state);
-
         chThdSleepMilliseconds(50);
     }
 
@@ -229,6 +227,10 @@ int main()
         chThdSleepMilliseconds(500);            // Providing some time for other components to react
         board::restart();
     }
+
+
+    
+
 
     /*
      * Starting the application
